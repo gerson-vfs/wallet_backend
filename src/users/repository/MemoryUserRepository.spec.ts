@@ -23,6 +23,29 @@ describe('UserRepository', () => {
     expect(userRepository).toBeDefined();
   });
 
+  it('should increment the id', () => {
+    const body = {
+      name: 'John Doe',
+      email: 'email@domain',
+      password: 'abc@123',
+    };
+
+    const user1 = userRepository.create(body);
+    const user2 = userRepository.create(body);
+
+    expect(user1.id).toBe(1);
+    expect(user2.id).toBe(2);
+
+    userRepository.remove(1);
+    userRepository.remove(2);
+
+    const user3 = userRepository.create(body);
+    const user4 = userRepository.create(body);
+
+    expect(user3.id).toBe(3);
+    expect(user4.id).toBe(4);
+  });
+
   it('should create a user', () => {
     const user = userRepository.create({
       name: 'John Doe',
@@ -55,8 +78,6 @@ describe('UserRepository', () => {
     expect(users[0].name).toBe('John Doe');
     expect(users[0].email).toBe('email@domain');
     expect(users[0].password).toBe('abc@123');
-
-    userRepository.remove(1);
   });
 
   it('should return a user', () => {
