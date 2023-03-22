@@ -5,7 +5,7 @@ import { User } from '../entities/user.entity';
 export abstract class UserRepository {
   abstract create(createUserDto: CreateUserDto): User;
   abstract findAll(): User[];
-  abstract findOne(id: number): User;
-  abstract update(id: number, updateUserDto: UpdateUserDto): User;
-  abstract remove(id: number): void;
+  abstract findOne(id: number): User | null;
+  abstract update(id: number, updateUserDto: UpdateUserDto): User | null;
+  abstract remove(id: number): User | null;
 }

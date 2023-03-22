@@ -32,11 +32,21 @@ export class MemoryUserRepository implements UserRepository {
   }
 
   findOne(id: number): User {
-    return this.users.find((user) => user.id === id);
+    const idx = this.users.findIndex((user) => user.id === id);
+
+    if (idx === -1) {
+      return null;
+    }
+
+    return this.users[idx];
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): User {
+  update(id: number, updateUserDto: UpdateUserDto): User | null {
     const idx = this.users.findIndex((user) => user.id === id);
+
+    if (idx === -1) {
+      return null;
+    }
 
     const user = new User({
       id: this.users[idx].id,
@@ -52,8 +62,15 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  remove(id: number): void {
+  remove(id: number): User | null {
     const idx = this.users.findIndex((user) => user.id === id);
+
+    if (idx == -1) {
+      return null;
+    }
+
+    const user = this.users[idx];
     this.users.splice(idx, 1);
+    return user;
   }
 }
