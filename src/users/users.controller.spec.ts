@@ -96,8 +96,20 @@ describe('UsersController', () => {
       password: 'abc@123',
     };
 
-    controller.create(body);
+    const user = controller.create(body);
 
-    expect(controller.remove('1')).toBeUndefined();
+    expect(controller.remove('1')).toEqual(user);
+  });
+
+  it('should return undefined if user not found', () => {
+    const body = {
+      name: 'John Doe',
+      email: 'email@domain',
+      password: 'abc@123',
+    };
+
+    expect(controller.update('1', body)).toBeNull();
+    expect(controller.findOne('1')).toBeNull();
+    expect(controller.remove('1')).toBeNull();
   });
 });
