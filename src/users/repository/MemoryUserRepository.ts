@@ -10,13 +10,15 @@ export class MemoryUserRepository implements UserRepository {
   protected users: User[] = [];
 
   create(createUserDto: CreateUserDto): User {
+    const now = new Date();
+
     const user = new User({
       id: this.id,
       name: createUserDto.name,
       email: createUserDto.email,
       password: createUserDto.password,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     });
 
     this.users.push(user);
