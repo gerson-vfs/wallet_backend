@@ -31,6 +31,7 @@ describe('TransactionsController', () => {
 
   it('should create a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -40,6 +41,7 @@ describe('TransactionsController', () => {
     const transaction = controller.create(body);
 
     expect(transaction.id).toBe(1);
+    expect(transaction.accountId).toBe(body.accountId);
     expect(transaction.amount).toBe(body.amount);
     expect(transaction.type).toBe(body.type);
     expect(transaction.status).toBe(body.status);
@@ -51,6 +53,7 @@ describe('TransactionsController', () => {
 
   it('should return a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -64,6 +67,7 @@ describe('TransactionsController', () => {
 
   it('should return all transactions', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -78,6 +82,7 @@ describe('TransactionsController', () => {
 
   it('should update a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -87,6 +92,7 @@ describe('TransactionsController', () => {
     const transaction = controller.create(body);
 
     const update = {
+      accountId: 1,
       amount: 4321,
       type: TransactionType.DEBIT,
       status: TransactionStatus.PENDING,
@@ -102,20 +108,17 @@ describe('TransactionsController', () => {
 
   it('should remove a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
       reason: TransactionReason.TRANSFER,
     };
 
-    controller.create(body);
+    const transaction = controller.create(body);
 
     expect(controller.remove('1')).toEqual({
-      id: 1,
-      amount: 1234,
-      type: TransactionType.CREDIT,
-      status: TransactionStatus.PENDING,
-      reason: TransactionReason.TRANSFER,
+      ...transaction,
       createdAt: expect.any(Date),
       updatedAt: expect.any(Date),
     });

@@ -1,8 +1,10 @@
+import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
 import { UpdateTransactionDto } from '../../transactions/dto/update-transaction.dto';
 import { Transaction } from '../../transactions/entities/transaction.entity';
 import { TransactionRepository } from './TransactionRepository';
 
+@Injectable()
 export class MemoryTransactionRepository implements TransactionRepository {
   protected id = 1;
   protected transactions: Transaction[] = [];
@@ -12,6 +14,7 @@ export class MemoryTransactionRepository implements TransactionRepository {
 
     const transaction = new Transaction({
       id: this.id,
+      accountId: createTransactionDto.accountId,
       amount: createTransactionDto.amount,
       type: createTransactionDto.type,
       status: createTransactionDto.status,
@@ -56,6 +59,7 @@ export class MemoryTransactionRepository implements TransactionRepository {
 
     const transaction = new Transaction({
       id: this.transactions[idx].id,
+      accountId: updateTransactionDto.accountId,
       amount: updateTransactionDto.amount,
       type: updateTransactionDto.type,
       status: updateTransactionDto.status,

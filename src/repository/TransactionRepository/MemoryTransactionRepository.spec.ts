@@ -32,6 +32,7 @@ describe('TransactionRepository', () => {
 
   it('should increment the id', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -56,6 +57,7 @@ describe('TransactionRepository', () => {
 
   it('should create a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -66,6 +68,7 @@ describe('TransactionRepository', () => {
 
     expect(transaction).toBeInstanceOf(Transaction);
     expect(transaction.id).toBe(1);
+    expect(transaction.accountId).toBe(body.accountId);
     expect(transaction.amount).toBe(body.amount);
     expect(transaction.type).toBe(body.type);
     expect(transaction.status).toBe(body.status);
@@ -79,6 +82,7 @@ describe('TransactionRepository', () => {
 
   it('should return an array of transactions', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -93,6 +97,7 @@ describe('TransactionRepository', () => {
     expect(users.length).toBe(1);
     expect(users[0]).toBeInstanceOf(Transaction);
     expect(users[0].id).toBe(1);
+    expect(users[0].accountId).toBe(body.accountId);
     expect(users[0].amount).toBe(body.amount);
     expect(users[0].type).toBe(body.type);
     expect(users[0].status).toBe(body.status);
@@ -104,6 +109,7 @@ describe('TransactionRepository', () => {
 
   it('should return a transaction', () => {
     const body = {
+      accountId: 1,
       amount: 1234,
       type: TransactionType.CREDIT,
       status: TransactionStatus.PENDING,
@@ -116,6 +122,7 @@ describe('TransactionRepository', () => {
 
     expect(transaction).toBeInstanceOf(Transaction);
     expect(transaction.id).toBe(1);
+    expect(transaction.accountId).toBe(body.accountId);
     expect(transaction.amount).toBe(body.amount);
     expect(transaction.type).toBe(body.type);
     expect(transaction.status).toBe(body.status);

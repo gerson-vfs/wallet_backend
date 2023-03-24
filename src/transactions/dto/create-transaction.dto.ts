@@ -5,6 +5,7 @@ import {
 } from '../entities/transaction.entity';
 
 export class CreateTransactionDto {
+  accountId: number;
   amount: number;
   type: TransactionType;
   status: TransactionStatus;
