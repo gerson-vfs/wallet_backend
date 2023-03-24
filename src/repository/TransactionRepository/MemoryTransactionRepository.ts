@@ -1,7 +1,7 @@
-import { CreateTransactionDto } from '../transactions/dto/create-transaction.dto';
-import { UpdateTransactionDto } from '../transactions/dto/update-transaction.dto';
-import { Transaction } from '../transactions/entities/transaction.entity';
-import { TransactionRepository } from './TransactionRepository/TransactionRepository';
+import { CreateTransactionDto } from '../../transactions/dto/create-transaction.dto';
+import { UpdateTransactionDto } from '../../transactions/dto/update-transaction.dto';
+import { Transaction } from '../../transactions/entities/transaction.entity';
+import { TransactionRepository } from './TransactionRepository';
 
 export class MemoryTransactionRepository implements TransactionRepository {
   protected id = 1;
