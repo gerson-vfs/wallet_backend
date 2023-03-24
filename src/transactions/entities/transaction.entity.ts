@@ -23,6 +23,16 @@ export class Transaction {
   type: TransactionType;
   status: TransactionStatus;
   reason: TransactionReason;
-  created: Date;
-  updated: Date;
+  createdAt: Date;
+  updatedAt: Date;
+
+  constructor(transaction: Transaction) {
+    this.id = transaction.id;
+    this.amount = transaction.amount;
+    this.type = transaction.type;
+    this.status = transaction.status;
+    this.reason = transaction.reason;
+    this.createdAt = transaction.createdAt;
+    this.updatedAt = transaction.updatedAt;
+  }
 }

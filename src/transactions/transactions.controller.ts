@@ -7,27 +7,27 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { TransactionRepository } from '../repository/TransactionRepository/TransactionRepository';
 
 @Controller('transactions')
 export class TransactionsController {
-  constructor(private readonly transactionsService: TransactionsService) {}
+  constructor(private readonly transactionRepository: TransactionRepository) {}
 
   @Post()
   create(@Body() createTransactionDto: CreateTransactionDto) {
-    return this.transactionsService.create(createTransactionDto);
+    return this.transactionRepository.create(createTransactionDto);
   }
 
   @Get()
   findAll() {
-    return this.transactionsService.findAll();
+    return this.transactionRepository.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.transactionsService.findOne(+id);
+    return this.transactionRepository.findOne(+id);
   }
 
   @Patch(':id')
@@ -35,11 +35,11 @@ export class TransactionsController {
     @Param('id') id: string,
     @Body() updateTransactionDto: UpdateTransactionDto,
   ) {
-    return this.transactionsService.update(+id, updateTransactionDto);
+    return this.transactionRepository.update(+id, updateTransactionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.transactionsService.remove(+id);
+    return this.transactionRepository.remove(+id);
   }
 }
