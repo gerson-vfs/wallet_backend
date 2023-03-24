@@ -1,6 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MemoryUserRepository } from './repository/MemoryUserRepository';
-import { UserRepository } from './repository/UserRepository';
+import { MemoryUserRepository } from '../repository/UserRepository/MemoryUserRepository';
+import { UserRepository } from '../repository/UserRepository/UserRepository';
+import { CreateUserUseCase } from './usecases/CreateUserUseCase';
+import { FindAllUsersUseCase } from './usecases/FindAllUsersUseCase';
+import { FindUserUseCase } from './usecases/FindUserUseCase';
+import { RemoveUserUseCase } from './usecases/RemoveUserUseCase';
+import { UpdateUserUseCase } from './usecases/UpdateUseCase';
 import { UsersController } from './users.controller';
 
 describe('UsersController', () => {
@@ -14,6 +19,11 @@ describe('UsersController', () => {
           provide: UserRepository,
           useClass: MemoryUserRepository,
         },
+        CreateUserUseCase,
+        FindAllUsersUseCase,
+        FindUserUseCase,
+        RemoveUserUseCase,
+        UpdateUserUseCase,
       ],
     }).compile();
 
@@ -24,14 +34,14 @@ describe('UsersController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should create a user', () => {
+  it('should create a user', async () => {
     const body = {
       name: 'John Doe',
       email: 'email@domain',
       password: 'abc@123',
     };
 
-    const user = controller.create(body);
+    const user = await controller.create(body);
 
     expect(user.id).toBe(1);
     expect(user.name).toBe(body.name);
@@ -42,31 +52,33 @@ describe('UsersController', () => {
     expect(user.createdAt).toBe(user.updatedAt);
   });
 
-  it('should return a user', () => {
+  it('should return a user', async () => {
     const body = {
       name: 'John Doe',
       email: 'email@domain',
       password: 'abc@123',
     };
 
-    const user = controller.create(body);
+    const user = await controller.create(body);
+    const foundUser = await controller.findOne('1');
 
-    expect(controller.findOne('1')).toEqual(user);
+    expect(foundUser).toEqual(user);
   });
 
-  it('should return all users', () => {
+  it('should return all users', async () => {
     const body = {
       name: 'John Doe',
       email: 'email@domain',
       password: 'abc@123',
     };
 
-    const user = controller.create(body);
+    const user = await controller.create(body);
+    const users = await controller.findAll();
 
-    expect(controller.findAll()).toEqual([user]);
+    expect(users).toEqual([user]);
   });
 
-  it('should update a user', () => {
+  it('should update a user', async () => {
     const body1 = {
       name: 'John Doe',
       email: 'email@domain',
@@ -78,8 +90,8 @@ describe('UsersController', () => {
       password: 'abc@123 1',
     };
 
-    controller.create(body1);
-    const user = controller.update('1', body2);
+    await controller.create(body1);
+    const user = await controller.update('1', body2);
 
     expect(user.id).toBe(1);
     expect(user.name).toBe(body2.name);
@@ -89,27 +101,32 @@ describe('UsersController', () => {
     expect(user.createdAt).not.toBe(user.updatedAt);
   });
 
-  it('should delete a user', () => {
+  it('should delete a user', async () => {
     const body = {
       name: 'John Doe',
       email: 'email@domain',
       password: 'abc@123',
     };
 
-    const user = controller.create(body);
+    const user = await controller.create(body);
+    const deletedUser = await controller.remove('1');
 
-    expect(controller.remove('1')).toEqual(user);
+    expect(deletedUser).toEqual(user);
   });
 
-  it('should return undefined if user not found', () => {
+  it('should return undefined if user not found', async () => {
     const body = {
       name: 'John Doe',
       email: 'email@domain',
       password: 'abc@123',
     };
 
-    expect(controller.update('1', body)).toBeNull();
-    expect(controller.findOne('1')).toBeNull();
-    expect(controller.remove('1')).toBeNull();
+    const updatedUser = await controller.update('1', body);
+    const deletedUser = await controller.remove('1');
+    const foundUser = await controller.findOne('1');
+
+    expect(updatedUser).toBeNull();
+    expect(deletedUser).toBeNull();
+    expect(foundUser).toBeNull();
   });
 });

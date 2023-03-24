@@ -9,34 +9,45 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserRepository } from './repository/UserRepository';
+
+import { CreateUserUseCase } from './usecases/CreateUserUseCase';
+import { FindAllUsersUseCase } from './usecases/FindAllUsersUseCase';
+import { FindUserUseCase } from './usecases/FindUserUseCase';
+import { RemoveUserUseCase } from './usecases/RemoveUserUseCase';
+import { UpdateUserUseCase } from './usecases/UpdateUseCase';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly findAllUsersUseCase: FindAllUsersUseCase,
+    private readonly findUserUseCase: FindUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly removeUserUseCase: RemoveUserUseCase,
+  ) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userRepository.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    return await this.createUserUseCase.execute(createUserDto);
   }
 
   @Get()
-  findAll() {
-    return this.userRepository.findAll();
+  async findAll() {
+    return await this.findAllUsersUseCase.execute();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userRepository.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.findUserUseCase.execute(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(+id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.updateUserUseCase.execute(+id, updateUserDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userRepository.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.removeUserUseCase.execute(+id);
   }
 }
