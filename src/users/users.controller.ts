@@ -9,7 +9,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { UserAlreadyExistsError } from 'src/errors/UserElreadyExistsError';
+import { AccountAlreadyExistsError } from 'src/errors/UserElreadyExistsError';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -34,7 +34,7 @@ export class UsersController {
     try {
       return await this.createUserUseCase.execute(createUserDto);
     } catch (error) {
-      if (error instanceof UserAlreadyExistsError) {
+      if (error instanceof AccountAlreadyExistsError) {
         throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
       }
 
