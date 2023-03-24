@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '../entities/user.entity';
+import { Account } from '../entities/user.entity';
 import { UserRepository } from '../../repository/UserRepository/UserRepository';
 
 @Injectable()
 export class FindAllUsersUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async execute(): Promise<User[]> {
+  async execute(): Promise<Account[]> {
     return await this.userRepository.findAll();
   }
 }
