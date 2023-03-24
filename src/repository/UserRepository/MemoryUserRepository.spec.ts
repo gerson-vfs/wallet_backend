@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from '../../users/entities/user.entity';
+import { Account } from '../../users/entities/user.entity';
 import { MemoryUserRepository } from './MemoryUserRepository';
 import { UserRepository } from './UserRepository';
 
@@ -55,7 +55,7 @@ describe('UserRepository', () => {
 
     const user = await userRepository.create(body);
 
-    expect(user).toBeInstanceOf(User);
+    expect(user).toBeInstanceOf(Account);
     expect(user.id).toBe(1);
     expect(user.name).toBe(body.name);
     expect(user.email).toBe(body.email);
@@ -78,7 +78,7 @@ describe('UserRepository', () => {
 
     expect(users).toBeInstanceOf(Array);
     expect(users.length).toBe(1);
-    expect(users[0]).toBeInstanceOf(User);
+    expect(users[0]).toBeInstanceOf(Account);
     expect(users[0].id).toBe(1);
     expect(users[0].name).toBe(body.name);
     expect(users[0].email).toBe(body.email);
@@ -99,7 +99,7 @@ describe('UserRepository', () => {
 
     const user = await userRepository.findOne(1);
 
-    expect(user).toBeInstanceOf(User);
+    expect(user).toBeInstanceOf(Account);
     expect(user.id).toBe(1);
     expect(user.name).toBe(body.name);
     expect(user.email).toBe(body.email);

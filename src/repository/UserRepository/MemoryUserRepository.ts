@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../../users/dto/create-user.dto';
 import { UpdateUserDto } from '../../users/dto/update-user.dto';
-import { User } from '../../users/entities/user.entity';
+import { Account } from '../../users/entities/user.entity';
 import { UserRepository } from './UserRepository';
 
 @Injectable()
 export class MemoryUserRepository implements UserRepository {
   protected id = 1;
-  protected users: User[] = [];
+  protected users: Account[] = [];
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<Account> {
     const now = new Date();
 
-    const user = new User({
+    const user = new Account({
       id: this.id,
       name: createUserDto.name,
       email: createUserDto.email,
@@ -27,11 +27,11 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(): Promise<Account[]> {
     return this.users;
   }
 
-  async findOne(id: number): Promise<User | null> {
+  async findOne(id: number): Promise<Account | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx === -1) {
@@ -41,14 +41,27 @@ export class MemoryUserRepository implements UserRepository {
     return this.users[idx];
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
+  async findByEmail(email: string): Promise<Account | null> {
+    const idx = this.users.findIndex((user) => user.email === email);
+
+    if (idx === -1) {
+      return null;
+    }
+
+    return this.users[idx];
+  }
+
+  async update(
+    id: number,
+    updateUserDto: UpdateUserDto,
+  ): Promise<Account | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx === -1) {
       return null;
     }
 
-    const user = new User({
+    const user = new Account({
       id: this.users[idx].id,
       name: updateUserDto.name,
       email: this.users[idx].email,
@@ -62,7 +75,7 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  async remove(id: number): Promise<User | null> {
+  async remove(id: number): Promise<Account | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx == -1) {

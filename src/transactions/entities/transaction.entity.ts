@@ -1,3 +1,5 @@
+import { Account } from 'src/users/entities/user.entity';
+
 export enum TransactionType {
   DEBIT = 'debit',
   CREDIT = 'credit',
@@ -19,6 +21,7 @@ export enum TransactionReason {
 
 export class Transaction {
   id: number;
+  account: Account;
   amount: number;
   type: TransactionType;
   status: TransactionStatus;
@@ -28,6 +31,7 @@ export class Transaction {
 
   constructor(transaction: Transaction) {
     this.id = transaction.id;
+    this.account = transaction.account;
     this.amount = transaction.amount;
     this.type = transaction.type;
     this.status = transaction.status;

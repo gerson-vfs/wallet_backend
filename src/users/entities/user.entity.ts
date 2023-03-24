@@ -1,4 +1,4 @@
-export class User {
+export class Account {
   readonly id: number;
   readonly name: string;
   readonly email: string;
@@ -6,7 +6,7 @@ export class User {
   readonly createdAt: Date;
   readonly updatedAt: Date;
 
-  constructor(user: User) {
+  constructor(user: Account) {
     this.id = user.id;
     this.name = user.name;
     this.email = user.email;
