@@ -6,7 +6,10 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
+import { UserAlreadyExistsError } from 'src/errors/UserElreadyExistsError';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -16,7 +19,7 @@ import { FindUserUseCase } from './usecases/FindUserUseCase';
 import { RemoveUserUseCase } from './usecases/RemoveUserUseCase';
 import { UpdateUserUseCase } from './usecases/UpdateUseCase';
 
-@Controller('users')
+@Controller('accounts')
 export class UsersController {
   constructor(
     private readonly createUserUseCase: CreateUserUseCase,
@@ -28,7 +31,15 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    return await this.createUserUseCase.execute(createUserDto);
+    try {
+      return await this.createUserUseCase.execute(createUserDto);
+    } catch (error) {
+      if (error instanceof UserAlreadyExistsError) {
+        throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      }
+
+      throw error;
+    }
   }
 
   @Get()
