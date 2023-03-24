@@ -7,7 +7,7 @@ import {
   TransactionReason,
   TransactionStatus,
   TransactionType,
-} from '../../../transactions/entities/transaction.entity';
+} from '../../../transactions/domain/entities/transaction.entity';
 import { CreateTransferDto } from '../dto/create-transfer.dto';
 
 @Injectable()

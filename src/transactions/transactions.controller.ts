@@ -7,8 +7,8 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { CreateTransactionDto } from './domain/dto/create-transaction.dto';
+import { UpdateTransactionDto } from './domain/dto/update-transaction.dto';
 import { TransactionRepository } from '../repository/TransactionRepository/TransactionRepository';
 
 @Controller('transactions')
