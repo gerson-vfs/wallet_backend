@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { Account } from '../../users/entities/user.entity';
+import { Account } from '../../accounts/entities/user.entity';
 import { AccountService } from './AccountService';
+import axios from 'axios';
 
 @Injectable()
 export class AxiosAccountService implements AccountService {
-  getAccountById(id: number): Promise<Account> {
-    throw new Error('Method not implemented.');
-  }
-  getAccountByEmail(email: string): Promise<Account> {
-    throw new Error('Method not implemented.');
+  private readonly axios = axios.create({
+    baseURL: 'http://localhost:4000',
+  });
+
+  async getAccountById(id: number): Promise<Account> {
+    const { data } = await this.axios.get(`/accounts/${id}`);
+    return new Account(data);
   }
 }
