@@ -9,7 +9,7 @@ export class MemoryUserRepository implements UserRepository {
   protected id = 1;
   protected users: User[] = [];
 
-  create(createUserDto: CreateUserDto): User {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const now = new Date();
 
     const user = new User({
@@ -27,11 +27,11 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  findAll(): User[] {
+  async findAll(): Promise<User[]> {
     return this.users;
   }
 
-  findOne(id: number): User {
+  async findOne(id: number): Promise<User | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx === -1) {
@@ -41,7 +41,7 @@ export class MemoryUserRepository implements UserRepository {
     return this.users[idx];
   }
 
-  update(id: number, updateUserDto: UpdateUserDto): User | null {
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx === -1) {
@@ -62,7 +62,7 @@ export class MemoryUserRepository implements UserRepository {
     return user;
   }
 
-  remove(id: number): User | null {
+  async remove(id: number): Promise<User | null> {
     const idx = this.users.findIndex((user) => user.id === id);
 
     if (idx == -1) {
