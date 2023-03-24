@@ -74,4 +74,4 @@ Nest is [MIT licensed](LICENSE).
 
 ## TODO:
 
-![image](https://user-images.githubusercontent.com/29186918/227527017-b14ac13e-b6ec-4a4b-8e15-9dc9f901967a.png)
+![image](https://github.com/gerson-vfs/wallet_backend/blob/main/resources/transfer-request.png?raw=true)
