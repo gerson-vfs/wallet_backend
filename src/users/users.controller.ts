@@ -9,7 +9,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { AccountAlreadyExistsError } from 'src/errors/AccountAlreadyExistsError';
+import { AccountAlreadyExistsError } from '../errors/AccountAlreadyExistsError';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { Account } from '../entities/user.entity';
 import { UserRepository } from '../../repository/UserRepository/UserRepository';
-import { AccountAlreadyExistsError } from 'src/errors/AccountAlreadyExistsError';
+import { AccountAlreadyExistsError } from '../../errors/AccountAlreadyExistsError';
 
 @Injectable()
 export class CreateUserUseCase {

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { MemoryTransactionRepository } from 'src/repository/TransactionRepository/MemoryTransactionRepository';
-import { TransactionRepository } from 'src/repository/TransactionRepository/TransactionRepository';
+import { MemoryTransactionRepository } from '../repository/TransactionRepository/MemoryTransactionRepository';
+import { TransactionRepository } from '../repository/TransactionRepository/TransactionRepository';
 import { TransactionsController } from './transactions.controller';
 
 @Module({
