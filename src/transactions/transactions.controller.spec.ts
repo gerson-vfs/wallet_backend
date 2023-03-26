@@ -3,7 +3,7 @@ import {
   TransactionReason,
   TransactionStatus,
   TransactionType,
-} from './entities/transaction.entity';
+} from './domain/entities/transaction.entity';
 import { MemoryTransactionRepository } from '../repository/TransactionRepository/MemoryTransactionRepository';
 import { TransactionRepository } from '../repository/TransactionRepository/TransactionRepository';
 import { TransactionsController } from './transactions.controller';

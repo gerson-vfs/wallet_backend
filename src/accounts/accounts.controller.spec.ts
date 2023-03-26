@@ -1,33 +1,33 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MemoryUserRepository } from '../repository/UserRepository/MemoryUserRepository';
 import { UserRepository } from '../repository/UserRepository/UserRepository';
-import { CreateUserUseCase } from './usecases/CreateUserUseCase';
-import { FindAllUsersUseCase } from './usecases/FindAllUsersUseCase';
-import { FindUserUseCase } from './usecases/FindUserUseCase';
-import { RemoveUserUseCase } from './usecases/RemoveUserUseCase';
-import { UpdateUserUseCase } from './usecases/UpdateUseCase';
-import { UsersController } from './users.controller';
+import { CreateAccountUseCase } from './usecases/CreateAccountUseCase';
+import { FindAllAccountsUseCase } from './usecases/FindAllAccountsUseCase';
+import { FindAccountUseCase } from './usecases/FindAccountUseCase';
+import { RemoveAccountUseCase } from './usecases/RemoveAccountUseCase';
+import { UpdateAccountUseCase } from './usecases/UpdateAccountUseCase';
+import { AccountsController } from './accounts.controller';
 
-describe('UsersController', () => {
-  let controller: UsersController;
+describe('AccountsController', () => {
+  let controller: AccountsController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UsersController],
+      controllers: [AccountsController],
       providers: [
         {
           provide: UserRepository,
           useClass: MemoryUserRepository,
         },
-        CreateUserUseCase,
-        FindAllUsersUseCase,
-        FindUserUseCase,
-        RemoveUserUseCase,
-        UpdateUserUseCase,
+        CreateAccountUseCase,
+        FindAllAccountsUseCase,
+        FindAccountUseCase,
+        RemoveAccountUseCase,
+        UpdateAccountUseCase,
       ],
     }).compile();
 
-    controller = module.get<UsersController>(UsersController);
+    controller = module.get<AccountsController>(AccountsController);
   });
 
   it('should be defined', () => {
