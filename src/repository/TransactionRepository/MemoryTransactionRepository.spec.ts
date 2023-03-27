@@ -4,7 +4,7 @@ import {
   TransactionReason,
   TransactionStatus,
   TransactionType,
-} from '../../transactions/entities/transaction.entity';
+} from '../../transactions/domain/entities/transaction.entity';
 import { MemoryTransactionRepository } from './MemoryTransactionRepository';
 import { TransactionRepository } from './TransactionRepository';
 

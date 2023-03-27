@@ -5,7 +5,7 @@ import { UserRepository } from '../../repository/UserRepository/UserRepository';
 import { AccountAlreadyExistsError } from '../../errors/AccountAlreadyExistsError';
 
 @Injectable()
-export class CreateUserUseCase {
+export class CreateAccountUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(createUserDto: CreateUserDto): Promise<Account> {

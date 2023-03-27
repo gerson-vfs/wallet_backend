@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { Account } from '../../users/entities/user.entity';
+import { Account } from '../../accounts/entities/user.entity';
 import { MemoryUserRepository } from './MemoryUserRepository';
 import { UserRepository } from './UserRepository';
 

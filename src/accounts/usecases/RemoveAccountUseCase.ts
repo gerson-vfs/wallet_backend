@@ -3,10 +3,10 @@ import { Account } from '../entities/user.entity';
 import { UserRepository } from '../../repository/UserRepository/UserRepository';
 
 @Injectable()
-export class FindUserUseCase {
+export class RemoveAccountUseCase {
   constructor(private readonly userRepository: UserRepository) {}
 
   async execute(id: number): Promise<Account | null> {
-    return await this.userRepository.findOne(id);
+    return await this.userRepository.remove(id);
   }
 }
